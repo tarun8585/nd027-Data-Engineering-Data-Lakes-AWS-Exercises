@@ -1,0 +1,1 @@
+CREATE DATABASE stedi_db;
