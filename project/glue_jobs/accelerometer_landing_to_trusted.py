@@ -33,21 +33,18 @@ customer_trusted_node1770855308304 = glueContext.create_dynamic_frame.from_catal
 accelerometer_landing_node1770853307209 = glueContext.create_dynamic_frame.from_catalog(database="stedi_db", table_name="accelerometer_landing", transformation_ctx="accelerometer_landing_node1770853307209")
 
 # Script generated for node SQL Query
-SqlQuery1288 = '''
-SELECT DISTINCT
-    a.user,
-    a.timestamp,
-    a.x,
-    a.y,
-    a.z
-FROM
-    accelerometer_landing a
-JOIN
-    customer_trusted c
-ON
-    a.user = c.email
+SqlQuery0 = '''
+SELECT
+        a.user,
+        a.timestamp,
+        a.x,
+        a.y,
+        a.z
+    FROM accelerometer_landing a
+    INNER JOIN customer_trusted c
+        ON a.user = c.email
 '''
-SQLQuery_node1770853649484 = sparkSqlQuery(glueContext, query = SqlQuery1288, mapping = {"accelerometer_landing":accelerometer_landing_node1770853307209, "customer_trusted":customer_trusted_node1770855308304}, transformation_ctx = "SQLQuery_node1770853649484")
+SQLQuery_node1770853649484 = sparkSqlQuery(glueContext, query = SqlQuery0, mapping = {"accelerometer_landing":accelerometer_landing_node1770853307209, "customer_trusted":customer_trusted_node1770855308304}, transformation_ctx = "SQLQuery_node1770853649484")
 
 # Script generated for node Amazon S3
 EvaluateDataQuality().process_rows(frame=SQLQuery_node1770853649484, ruleset=DEFAULT_DATA_QUALITY_RULESET, publishing_options={"dataQualityEvaluationContext": "EvaluateDataQuality_node1770853297650", "enableDataQualityResultsPublishing": True}, additional_options={"dataQualityResultsPublishing.strategy": "BEST_EFFORT", "observations.scope": "ALL"})

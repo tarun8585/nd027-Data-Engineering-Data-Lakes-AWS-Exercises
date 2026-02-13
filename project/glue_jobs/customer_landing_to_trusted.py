@@ -30,24 +30,13 @@ DEFAULT_DATA_QUALITY_RULESET = """
 AWSGlueDataCatalog_node1770852103559 = glueContext.create_dynamic_frame.from_catalog(database="stedi_db", table_name="customer_landing", transformation_ctx="AWSGlueDataCatalog_node1770852103559")
 
 # Script generated for node SQL Query
-SqlQuery1189 = '''
+SqlQuery0 = '''
 SELECT
-    customerName,
-    email,
-    phone,
-    birthDay,
-    serialNumber,
-    registrationDate,
-    lastUpdateDate,
-    shareWithResearchAsOfDate,
-    shareWithPublicAsOfDate,
-    shareWithFriendsAsOfDate
-FROM
-    customer_landing
-WHERE
-    shareWithResearchAsOfDate IS NOT NULL
+    *
+FROM customer_landing
+WHERE shareWithResearchAsOfDate IS NOT NULL;
 '''
-SQLQuery_node1770852114225 = sparkSqlQuery(glueContext, query = SqlQuery1189, mapping = {"customer_landing":AWSGlueDataCatalog_node1770852103559}, transformation_ctx = "SQLQuery_node1770852114225")
+SQLQuery_node1770852114225 = sparkSqlQuery(glueContext, query = SqlQuery0, mapping = {"customer_landing":AWSGlueDataCatalog_node1770852103559}, transformation_ctx = "SQLQuery_node1770852114225")
 
 # Script generated for node Amazon S3
 EvaluateDataQuality().process_rows(frame=SQLQuery_node1770852114225, ruleset=DEFAULT_DATA_QUALITY_RULESET, publishing_options={"dataQualityEvaluationContext": "EvaluateDataQuality_node1770851987784", "enableDataQualityResultsPublishing": True}, additional_options={"dataQualityResultsPublishing.strategy": "BEST_EFFORT", "observations.scope": "ALL"})
